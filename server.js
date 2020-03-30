@@ -1,8 +1,11 @@
+const cors = require('cors')
 const axios = require('axios');
 const express = require('express');
 const converter = require('xml-js');
 
 let app = express();
+
+app.use(cors());
 app.use(express.static('public'))
 
 const ncbiBaseUrl = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
