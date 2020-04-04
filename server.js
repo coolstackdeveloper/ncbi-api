@@ -26,9 +26,10 @@ app.get('/', (req, res) => {
 app.get('/search', (req, res) => {
     let database = req.query.database;
     let term = req.query.term;
-    let maxResultsToReturn = req.query.retmax || 100;
+    let maxResultsToReturn = req.query.retmax || 10;
+    let retstart =  req.query.retstart || 0;
 
-    let url = `${ncbiSearchUrl}?db=${database}&term=${term}}&retmax=${maxResultsToReturn}&retmode=json`;
+    let url = encodeURI(`${ncbiSearchUrl}?db=${database}&term=${term}}&retmax=${maxResultsToReturn}&retmode=json&sort=most recent&retstart=${retstart}`);
 
     axios.get(url).then(response => {
         res.send(response.data);
@@ -45,6 +46,7 @@ app.get('/summary', (req, res) => {
         res.send(response.data);
     });
 });
+
 
 app.get('/fetch', (req, res) => {
     let database = req.query.database;
